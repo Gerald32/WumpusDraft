@@ -2,11 +2,11 @@ import os
 import random
 
 # Input
-CUBE_FILE = "C:\\Users\\Gerald\\Downloads\\TestCube4.txt"
-POOL_NAME = "Colin"
+CUBE_FILE = "C:\\Users\\Gerald\\Downloads\\TestCube5.txt"
+POOL_NAME = "BasicLands"
 NUM_PACKS = 18
-NUM_R = 1
-NUM_U = 3
+NUM_R = 0 #1
+NUM_U = 0 #3
 NUM_C = 10
 
 r = []
@@ -15,7 +15,7 @@ c = []
 
 with open(CUBE_FILE) as f:
     for l in f.readlines():
-        line = l[:-1].split(",")
+        line = l[:-1].split(":")
         name = line[0]
         rarity = line[1]
 
@@ -47,7 +47,7 @@ else:
     with open(filename, 'w+') as f:
         f.write("name\n")
         for c in cards:
-            f.write(c + "\n")
+            f.write("\"" + c + "\"\n")
     print("Saved to " + filename)
 
 

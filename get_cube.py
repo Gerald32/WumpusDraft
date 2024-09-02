@@ -5,7 +5,7 @@ import time
 
 # Input
 SETS = ["akh", "dom", "war", "stx", "znr"]
-CUBE_NAME = "TestCube"
+CUBE_NAME = ""
 WITH_RARITY = True
 
 def check(r):
@@ -26,7 +26,7 @@ def get_names(r):
     return names
 
 # build query from SETS
-query = "+OR+".join(["set%3A" + s for s in SETS])
+query = "-t%3ABasic+AND+game%3Apaper+AND+(" + "+OR+".join(["set%3A" + s for s in SETS]) + ")"
 # make url base
 base = "https://api.scryfall.com/cards/search?order=name&format=csv&q=(" + query + ")&page=1"
 
@@ -45,7 +45,8 @@ while result.headers['X-Scryfall-Has-More'] == "true":
 cube += get_names(result)
 
 if CUBE_NAME == "":
-    print(cube)
+    for c in cube:
+        print(c)
 else:
     cube_idx = 1
     filename = "C:\\Users\\Gerald\\Downloads\\" + CUBE_NAME + str(cube_idx) + ".txt"
@@ -55,7 +56,7 @@ else:
     with open(filename, 'w+') as f:
         for card in cube:
             if WITH_RARITY:
-                f.write(",".join(card) + "\n")
+                f.write(":".join(card) + "\n")
             else:
                 f.write(card + "\n")
     print("Saved to " + filename)
